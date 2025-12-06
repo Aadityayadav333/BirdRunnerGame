@@ -85,6 +85,14 @@ body {
     font-size: 18px;
 }
 
+/* Show mobile controls on touch devices and in landscape */
+@media screen and (max-width: 768px),
+       screen and (orientation: landscape) and (max-height: 500px) {
+    .mobile-controls {
+        display: flex !important;
+    }
+}
+
 /* Landscape orientation for mobile */
 @media screen and (max-width: 768px) and (orientation: landscape) {
     .modal {
@@ -113,6 +121,7 @@ body {
     .mobile-controls {
         height: 120px;
         padding: 10px;
+        display: flex !important;
     }
     
     .control-btn {
@@ -142,6 +151,7 @@ body {
     
     .mobile-controls {
         height: 180px;
+        display: flex !important;
     }
     
     .control-btn {
@@ -155,9 +165,9 @@ body {
     }
 }
 
-/* Desktop - hide mobile controls */
+/* Desktop - hide mobile controls by default */
 @media screen and (min-width: 769px) {
-    .mobile-controls {
+    .mobile-controls.hidden {
         display: none !important;
     }
 }
