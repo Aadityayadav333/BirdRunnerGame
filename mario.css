@@ -1,57 +1,224 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-*{
-    font-family: 'VT323',monospace;
+* {
+    font-family: 'VT323', monospace;
     font-size: xx-large;
+    box-sizing: border-box;
 }
 
-body{
-    margin:0;
+body {
+    margin: 0;
     overflow: hidden;
     background-color: #000;
-    color:#fff;
+    color: #fff;
+    position: relative;
 }
 
-.modal{
-    width:600px;
-    margin:auto;
+.modal {
+    width: 600px;
+    max-width: 90%;
+    margin: auto;
     margin-top: 100px;
+    z-index: 1000;
+    position: relative;
 }
 
-form{
-    display:flex;
+form {
+    display: flex;
     flex-direction: column;
     background-color: #0aad02;
-    padding:10px;
+    padding: 10px;
 }
 
-form input[type=submit]{
+form input[type=submit] {
     background-color: brown;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
 }
 
-.button-container button{
-    border:none;
-    background-color: transparent;
-    color:#fff;
-    padding:5px;
-    background-color: #0aad02
+form input {
+    margin-bottom: 10px;
+    padding: 5px;
 }
 
-.button-container button.not-active{
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.button-container button {
+    border: none;
+    background-color: #0aad02;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.button-container button.not-active {
     background-color: grey;
 }
 
-.hidden{
-    display:none;
+.hidden {
+    display: none !important;
 }
 
-.info-container{
-    position:absolute;
-    top:10px;
-    right:10px;
+.info-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     text-align: right;
+    z-index: 100;
 }
 
-h3{
-    color:white;
+h3 {
+    color: white;
+    margin: 5px 0;
+}
+
+#toggleButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+    background-color: #0aad02;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+/* Mobile Touch Controls */
+.mobile-controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.controls-left,
+.controls-right {
+    display: flex;
+    gap: 15px;
+    pointer-events: all;
+}
+
+.control-btn {
+    width: 70px;
+    height: 70px;
+    border: 3px solid #fff;
+    background-color: rgba(10, 173, 2, 0.7);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.control-btn:active {
+    background-color: rgba(10, 173, 2, 1);
+    transform: scale(0.95);
+}
+
+.jump-btn {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    font-size: 20px;
+}
+
+.enter-btn {
+    width: 80px;
+    height: 60px;
+    font-size: 18px;
+}
+
+/* Landscape orientation for mobile */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .modal {
+        margin-top: 20px;
+        width: 80%;
+        max-width: 500px;
+    }
+    
+    .info-container {
+        top: 5px;
+        right: 5px;
+    }
+    
+    h3 {
+        font-size: large;
+        margin: 2px 0;
+    }
+    
+    #toggleButton {
+        top: 5px;
+        left: 5px;
+        padding: 5px 10px;
+        font-size: large;
+    }
+    
+    .mobile-controls {
+        height: 120px;
+        padding: 10px;
+    }
+    
+    .control-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+    
+    .jump-btn {
+        width: 75px;
+        height: 75px;
+        font-size: 18px;
+    }
+    
+    .enter-btn {
+        width: 70px;
+        height: 50px;
+        font-size: 16px;
+    }
+}
+
+/* Portrait orientation for mobile */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .modal {
+        margin-top: 50px;
+    }
+    
+    .mobile-controls {
+        height: 180px;
+    }
+    
+    .control-btn {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .jump-btn {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Desktop - hide mobile controls */
+@media screen and (min-width: 769px) {
+    .mobile-controls {
+        display: none !important;
+    }
 }
