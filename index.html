@@ -2,99 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Mario Game</title>
     <link rel="stylesheet" href="mario.css">
 </head>
 <body>
-<script>
+    <button id="toggleButton">Play Music</button>
+    <audio id="myAudio">
+        <source src="https://github.com/Aadityayadav333/BirdRunnerGame/blob/main/Cheap-Thrills-Sia(pagalworld.co.uk).mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
     
-<button id="toggleButton">Play Music</button>
+    <!-- Mobile Touch Controls -->
+    <div id="mobile-controls" class="mobile-controls hidden">
+        <div class="controls-left">
+            <button id="btn-left" class="control-btn">←</button>
+            <button id="btn-right" class="control-btn">→</button>
+        </div>
+        <div class="controls-right">
+            <button id="btn-jump" class="control-btn jump-btn">JUMP</button>
+            <button id="btn-enter" class="control-btn enter-btn">ENTER</button>
+        </div>
+    </div>
 
-<audio id="myAudio">
-    <!-- Replace 'your_song.mp3' with the path to your audio file --!>
-    <source src="https://github.com/Aadityayadav786/BirdRunnerGame/blob/main/Cheap-Thrills-Sia(pagalworld.co.uk).mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-</audio>
-
-   // Get the button and audio element
-    var button = document.getElementById("toggleButton");
-    var audio = document.getElementById("myAudio");
-
-    // Set the initial state
-    var isPlaying = false;
-
-    // Function to toggle play/pause
-    function togglePlay() {
-        if (isPlaying) {
-            // Pause the audio
-            audio.pause();
-            // Change the button text to "Play"
-            button.textContent = "Play";
-        } else {
-            // Play the audio
-            audio.play();
-            // Change the button text to "Pause"
-            button.textContent = "Pause";
+    <script>
+        var button = document.getElementById("toggleButton");
+        var audio = document.getElementById("myAudio");
+        var isPlaying = false;
+        
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                button.textContent = "Play Music";
+            } else {
+                audio.play();
+                button.textContent = "Pause Music";
+            }
+            isPlaying = !isPlaying;
         }
-        // Toggle the play state
-        isPlaying = !isPlaying;
-    }
-
-    // Add a click event listener to the button
-    button.addEventListener("click", function() {
-        // Ensure audio context is created on user gesture
-        var context = new (window.AudioContext || window.webkitAudioContext)();
-        // Start or resume the audio context
-        context.resume().then(function() {
-            // Call the togglePlay function
-            togglePlay();
+        
+        button.addEventListener("click", function() {
+            var context = new (window.AudioContext || window.webkitAudioContext)();
+            context.resume().then(function() {
+                togglePlay();
+            });
         });
-    });
-</script>
+    </script>
+    
     <div id="modal" class="modal">
         <div class="button-container">
             <button id="register-button">Register</button>
             <button id="login-button" class="not-active">Login</button>
         </div>
-
-            <form onsubmit="register(event)" id="register-form">
-
-      <label for="register-email"></label>
-   <input type="email" id="register-email" value="demo@example.com" required>
-
-   <label for="register-password">Password</label>
-   <input type="password"  id="register-password" value="password" required pattern=".{6,}">
-
-   <label for="register-username">Username</label>
-   <input id="register-username" value="User" required>
-        </br>
-        <input type="submit" value="Sign Up">
+        <form onsubmit="register(event)" id="register-form">
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" value="demo@example.com" required>
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" value="password" required pattern=".{6,}">
+            <label for="register-username">Username</label>
+            <input id="register-username" value="User" required>
+            <br>
+            <input type="submit" value="Sign Up">
         </form>
-
-        <!-- login form -->
-        <form onsubmit = "" id="login" class="hidden">
-            <label for="login-email"></label>
-         <input type="email" id="login-email" placeholder="demo@example.com" required>
-      
-         <label for="login-password">Password</label>
-         <input type="password"  id="login-password" placeholder="password" required pattern=".{6,}">
-      
-              </br>
-              <input type="submit" value="Sign In">
-              </form>
+        
+        <form onsubmit="login(event)" id="login-form" class="hidden">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="demo@example.com" required>
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="password" required pattern=".{6,}">
+            <br>
+            <input type="submit" value="Sign In">
+        </form>
     </div>
-
+    
     <div class="info-container">
-   <button id="logout-button" class="hidden">Log Out</button>
-   <h3 id="username"></h3>
-   <h3 id="highscore-tag" class="hidden">Highscore: <span id="highscore"></span></h3>
+        <button id="logout-button" class="hidden">Log Out</button>
+        <h3 id="username"></h3>
+        <h3 id="highscore-tag" class="hidden">Highscore: <span id="highscore"></span></h3>
     </div>
-
-<script src="https://kaboomjs.com/lib/0.5.0/kaboom.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0"></script>
-
-
+    
+    <script src="https://kaboomjs.com/lib/0.5.0/kaboom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0"></script>
     <script src="mario.js"></script>
 </body>
 </html>
