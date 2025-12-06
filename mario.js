@@ -332,16 +332,13 @@ function startGame() {
             }
         });
 
-        let onPipe = false;
-        player.collides('pipe', () => {
-            onPipe = true;
-        });
-
-        player.action(() => {
-            if (!player.isColliding('pipe')) {
-                onPipe = false;
-            }
-        });
+            let onPipe = false;
+    player.collides('pipe', () => {
+        onPipe = true;
+        setTimeout(() => {
+            onPipe = false;
+        }, 100);
+    });
 
         // Keyboard controls
         keyDown('left', () => {
@@ -455,3 +452,4 @@ function startGame() {
 
     start("game", { level: 0, score: 0 });
 }
+
