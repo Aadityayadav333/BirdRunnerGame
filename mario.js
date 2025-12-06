@@ -1,109 +1,7 @@
-var heading1 = document.createElement("h2");
-var heading2 = document.createElement("h2");
-var heading3 = document.createElement("h2");
-heading1.textContent = "Desktop: Arrow Keys for motion, Space for Jump, Down/Enter on Green Pipe";
-heading2.textContent = "Mobile: Use touch buttons at bottom of screen";
-heading3.textContent = "5 Levels - Each gets progressively harder!";
-heading1.style.display = "none";
-heading2.style.display = "none";
-heading3.style.display = "none";
-document.body.appendChild(heading1);
-document.body.appendChild(heading2);
-document.body.appendChild(heading3);
-
-const { Client, Account, Databases, ID, Query } = Appwrite;
-const projectId = '64f5f0e4bdae3cad4c1d';
-const databaseId = '65892e4bb3ecfc5eb17b';
-const collectionId = '65892f1ba10c183a5742';
-
-const client = new Client()
-    .setEndpoint('https://cloud.appwrite.io/v1')
-    .setProject(projectId);
-
-const account = new Account(client);
-const database = new Databases(client);
-
-async function isLoggedIn() {
-    return account.get().then(response => {
-        if (response) {
-            return true;
-        }
-        return false;
-    }).catch(error => console.error(error));
+// Show mobile controls on touch devices
+if ('ontouchstart' in window) {
+    document.getElementById('mobile-controls').classList.remove('hidden');
 }
-
-function register(event) {
-    account.create(
-        ID.unique(),
-        event.target.elements['register-email'].value,
-        event.target.elements['register-password'].value,
-        event.target.elements['register-username'].value
-    ).then(response => {
-        console.log(response);
-        database.createDocument(
-            databaseId,
-            collectionId,
-            response.$id,
-            {
-                "userId": response.$id,
-                "highscore": 0
-            }
-        );
-        
-        account.createEmailSession(
-            event.target.elements['register-email'].value,
-            event.target.elements['register-password'].value
-        ).then(() => {
-            showDisplay();
-        });
-    }).catch(error => console.error(error));
-    event.preventDefault();
-}
-
-function login(event) {
-    account.createEmailSession(
-        event.target.elements['login-email'].value,
-        event.target.elements['login-password'].value
-    ).then(() => {
-        showDisplay();
-    }).catch(error => console.error(error));
-    event.preventDefault();
-}
-
-function showDisplay() {
-    const modalElement = document.getElementById('modal');
-    modalElement.classList.add('hidden');
-    isLoggedIn().then(isLogin => {
-        if (isLogin) {
-            const modalElement = document.getElementById('modal');
-            modalElement.classList.add('hidden');
-            const logoutButton = document.getElementById('logout-button');
-            logoutButton.classList.remove('hidden');
-            const highscoreTag = document.getElementById('highscore-tag');
-            highscoreTag.classList.remove('hidden');
-            
-            // Show mobile controls on touch devices
-            if ('ontouchstart' in window) {
-                document.getElementById('mobile-controls').classList.remove('hidden');
-            }
-            
-            startGame();
-        } else {
-            const modalElement = document.getElementById('modal');
-            modalElement.classList.remove('hidden');
-            const logoutButton = document.getElementById('logout-button');
-            logoutButton.classList.add('hidden');
-            const highscoreTag = document.getElementById('highscore-tag');
-            highscoreTag.classList.add('hidden');
-            const usernameElement = document.getElementById('username');
-            usernameElement.textContent = "";
-            const canvas = document.querySelector('canvas');
-            if (canvas) canvas.remove();
-        }
-    }).catch(error => console.log(error));
-}
-
-showDisplay();
 
 // Mobile Touch Controls
 let touchControls = {
@@ -161,7 +59,8 @@ function setupMobileControls() {
     }
 }
 
-setupMobileControls();
+// Start game immediately
+startGame();
 
 // Kaboom Game
 function startGame() {
