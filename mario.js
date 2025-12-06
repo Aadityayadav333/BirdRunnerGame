@@ -86,8 +86,8 @@ function startGame() {
 
     loadRoot('https://i.imgur.com/');
     loadSprite('coin', 'wbKxhcd.png');
-    loadSprite('red-bird', 'KPO3fR9.png'); // Red player bird
-    loadSprite('blue-bird', 'SvV4ueD.png'); // Blue enemy bird
+    loadSprite('red-bird', 'KPO3fR9.png');
+    loadSprite('blue-bird', 'SvV4ueD.png');
     loadSprite('brick', 'pogC9x5.png');
     loadSprite('block', 'M6rwarW.png');
     loadSprite('mushroom', '0wMd92p.png');
