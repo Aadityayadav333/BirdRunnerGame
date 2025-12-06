@@ -11,7 +11,8 @@ let touchControls = {
     left: false,
     right: false,
     jump: false,
-    enter: false
+    enter: false,
+    down: false
 };
 
 function setupMobileControls() {
@@ -57,7 +58,12 @@ function setupMobileControls() {
         btnEnter.addEventListener('touchstart', (e) => {
             e.preventDefault();
             touchControls.enter = true;
-            setTimeout(() => touchControls.enter = false, 200);
+            touchControls.down = true;
+        });
+        btnEnter.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            touchControls.enter = false;
+            touchControls.down = false;
         });
     }
 }
@@ -324,19 +330,27 @@ function startGame() {
         });
 
         // PIPE TOUCH TO WIN LEVEL
+        let onPipe = false;
         player.collides('pipe', () => {
-            keyPress('down', () => {
+            onPipe = true;
+        });
+
+        keyPress('down', () => {
+            if (onPipe) {
                 go('game', {
                     level: (level + 1) % maps.length,
                     score: scoreLabel.value
                 });
-            });
-            keyPress('enter', () => {
+            }
+        });
+
+        keyPress('enter', () => {
+            if (onPipe) {
                 go('game', {
                     level: (level + 1) % maps.length,
                     score: scoreLabel.value
                 });
-            });
+            }
         });
 
         keyDown('left', () => {
@@ -362,6 +376,9 @@ function startGame() {
 
         // Mobile touch controls
         player.action(() => {
+            // Camera follows player on mobile
+            camPos(player.pos);
+            
             if (touchControls.left) {
                 player.move(-moveSpeed, 0);
             }
@@ -372,6 +389,15 @@ function startGame() {
                 isJumping = true;
                 player.jump(currentJumpforce);
                 touchControls.jump = false;
+            }
+            // Mobile pipe entry
+            if ((touchControls.enter || touchControls.down) && onPipe) {
+                go('game', {
+                    level: (level + 1) % maps.length,
+                    score: scoreLabel.value
+                });
+                touchControls.enter = false;
+                touchControls.down = false;
             }
         });
     });
