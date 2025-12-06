@@ -14,69 +14,8 @@ body {
     position: relative;
 }
 
-.modal {
-    width: 600px;
-    max-width: 90%;
-    margin: auto;
-    margin-top: 100px;
-    z-index: 1000;
-    position: relative;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    background-color: #0aad02;
-    padding: 10px;
-}
-
-form input[type=submit] {
-    background-color: brown;
-    border: none;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-}
-
-form input {
-    margin-bottom: 10px;
-    padding: 5px;
-}
-
-.button-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.button-container button {
-    border: none;
-    background-color: #0aad02;
-    color: #fff;
-    padding: 10px 20px;
-    cursor: pointer;
-    flex: 1;
-}
-
-.button-container button.not-active {
-    background-color: grey;
-}
-
 .hidden {
     display: none !important;
-}
-
-.info-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    text-align: right;
-    z-index: 100;
-}
-
-h3 {
-    color: white;
-    margin: 5px 0;
 }
 
 #toggleButton {
